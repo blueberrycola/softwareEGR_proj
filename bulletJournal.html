@@ -2,11 +2,18 @@
 <html>
 <head>
 <title>Bullet Journal</title>
+<script>
+	window.onload = function(){
+		var text = "sample text";
+		document.getElementById('output').innerHTML = text;
+	};
+</script>
 </head>
 <body>
 <form action="/server.html" method="POST">
 	<textarea name="text" rows="5" cols="20"></textarea>
 	<input type="submit">
 </form>
+<p id="output"></p>
 </body>
 </html>
