@@ -4,13 +4,13 @@
 <title>Bullet Journal</title>
 <script>
 	window.onload = function(){
-		var text = "sample text";
+		var text = "sample text";  //add server side text var here
 		document.getElementById('output').innerHTML = text;
 	};
 </script>
 </head>
 <body>
-<form action="/server.html" method="POST">
+<form action="/server.html" method="POST"> <!--add server url in action-->
 	<textarea name="text" rows="5" cols="20"></textarea>
 	<input type="submit">
 </form>
