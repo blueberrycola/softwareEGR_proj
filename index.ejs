@@ -1,0 +1,22 @@
+<html>
+<head>
+    <title> Bullet Journal JS Application </title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:100"     rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+  </head>
+<body>
+  <div class="container">
+<h2> Bullet Journal </h2>
+<form action ="/addtask" method="POST">
+       <input type="text" name="newtask" placeholder="add new task">        <button> Add Entry </button>
+<h2> Added Entry </h2>
+    <% for(var i = 0; i < entries.length; i++) { %>
+    <li><input type="checkbox" name="check" value="<%= entries[i] %>" /> <%= entries[i] %> </li>
+    
+    <% } %>
+<button formaction="/removetask" type="submit"> Remove </button>
+</form>
+<h2> Completed task </h2>
+</div>
+</body>
+</html>
