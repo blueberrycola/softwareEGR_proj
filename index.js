@@ -8,18 +8,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Pulls mongodb data. If entries are added or moved to completed.
     //replace the document in mongodb
 var MongoClient = require('mongodb').MongoClient;
-var passwd = "in discord";
+var passwd = "yeet";
 
 var url = "mongodb+srv://blueberrycola:"+ passwd + "@bulletjournalapp.kbpps.mongodb.net/<dbname>?retryWrites=true&w=majority";
-var entries = []; 
+var entries = [];
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("db");
-    var query = { _id: "unitTestMongo" };
+    var query = { _id: "chasejohnston" };
     dbo.collection("entry_collection").find(query).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
-        entries = result;
+        console.log(result[0]);
+        entries = result[0].task;
         db.close();
     });
 });
