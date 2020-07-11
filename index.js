@@ -4,10 +4,29 @@ var app = express();
 //body parser object init
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
-//Variable responsible for pulling mongo json data
-    //FIXME: IMPLEMENT MONGODB RETRIEVAL
-var entries = ["wow", "owen wilson"];
-var complete = ["yeet"];
+
+//Pulls mongodb data. If entries are added or moved to completed.
+    //replace the document in mongodb
+var MongoClient = require('mongodb').MongoClient;
+var passwd = "in discord";
+
+var url = "mongodb+srv://blueberrycola:"+ passwd + "@bulletjournalapp.kbpps.mongodb.net/<dbname>?retryWrites=true&w=majority";
+var entries = []; 
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("db");
+    var query = { _id: "unitTestMongo" };
+    dbo.collection("entry_collection").find(query).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        entries = result;
+        db.close();
+    });
+});
+
+
+//Completed tasks will have a green checkmark replaced instead of a dot
+var complete = [];
 
 //post route for adding entry
 app.post('/addtask', function (req, res) {
@@ -15,6 +34,23 @@ app.post('/addtask', function (req, res) {
     entries.push(newEntry);
     res.redirect("/");
 });
+//complete a task
+    //FIXME: once a task is completed add a green check mark to it on the right hand side
+app.post("/completetask", function(req, res) {
+    var task = req.body.check;
+    if(typeof task === "string") {
+        complete.push(task);
+        entries.splice((task), 1);
+    } else if(typeof task === "object") {
+        for(var i = 0; i < task.length; i++) {
+            complete.push(task[i]);
+            entries.splice((task), 1);
+        }
+    }
+    res.redirect("/");
+    
+});
+
 //render the ejs and display added task, 
 //entries(index.ejs) = entries(array);
 app.get("/", function(req, res) {
