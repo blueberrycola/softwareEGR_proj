@@ -111,6 +111,7 @@ body, html {
 /*part of the text area that allows the textbox itself to be transparent while also allowing the text to remain black*/
 .textareaa {
   background-color: rgba(255, 255, 255, 0.5);
+  position: relative;
   float:left;
   width: 1200px;
   height: 1200px;
@@ -146,6 +147,7 @@ body {margin:0;}
   background-color: #0E5862;
 }
 
+
   
 </style>
 </head>
@@ -166,8 +168,12 @@ body {margin:0;}
   <a href="#"><i class="fas fa-list"></i>
   <a href="#"><i class="fas fa-list-ol"></i></a> 
   <a href="#"><i class="fas fa-list-ul"></i></a>
-  <a href="#"><i class="far fa-plus-square"></i></a>
+  <a href="#">
+    <i class="far fa-plus-square" onclick="createbullet()">
+
+    </i></a>
   <a href="#"><i class="fas fa-paste"></i>
+    
 
 </div>
 
@@ -175,6 +181,7 @@ body {margin:0;}
 <div class="bg">
   <div class="container">
     <div class="text-block">
+
       <textarea class="textareaa">
       </textarea>
 
@@ -182,6 +189,20 @@ body {margin:0;}
   </div>
 </div>
 
-
+<script>
+  function createbullet() {
+    /* Vars used for bullet point placement on the image in textblock */
+    var x = 25;
+    var y = 45;
+    var y_increase = 40;
+    let node = document.createElement("LI");
+    let textnode = document.createTextNode("Testing");
+    node.appendChild(textnode);
+    document.querySelector('.textareaa').appendChild(node);
+    
+  }
+</script>
 </body>
+
+
 </html>
