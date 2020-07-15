@@ -38,14 +38,3 @@ describe('MongoDB', function() {
     });
             
 });
-
-
-
-
-//Test post task
-
-//Test post complete
-
-//Test get
-
-//Test listen
