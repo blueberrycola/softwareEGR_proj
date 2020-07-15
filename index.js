@@ -8,10 +8,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Pulls mongodb data. If entries are added or moved to completed.
     //replace the document in mongodb
 var MongoClient = require('mongodb').MongoClient;
-var passwd = "yeet";
+var passwd = "XpwinXP83PDjr29E";
 
 var url = "mongodb+srv://blueberrycola:"+ passwd + "@bulletjournalapp.kbpps.mongodb.net/<dbname>?retryWrites=true&w=majority";
 var entries = [];
+var idString = "";
+//Completed tasks will have a green checkmark replaced instead of a dot
+var complete = [];
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("db");
@@ -19,14 +22,15 @@ MongoClient.connect(url, function(err, db) {
     dbo.collection("entry_collection").find(query).toArray(function(err, result) {
         if (err) throw err;
         console.log(result[0]);
+        idString = result[0]._id;
         entries = result[0].task;
+        complete = result[0].complete;
         db.close();
     });
 });
 
 
-//Completed tasks will have a green checkmark replaced instead of a dot
-var complete = [];
+
 
 //post route for adding entry
 app.post('/addtask', function (req, res) {
