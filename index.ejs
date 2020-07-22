@@ -173,14 +173,22 @@ body {margin:0;}
 
     </i></a>
   <a href="#"><i class="fas fa-paste"></i>
+  
     
 
 </div>
+<form>
+  Username:<input type="text" id="username" value="">
+  Password:<input type="text" id="password">
+  <input type="submit" value="submit" onclick="loginMongo()">
+</form>
 
 
 <div class="bg">
   <div class="container">
     <div class="text-block">
+
+
     </div>
   </div>
 </div>
@@ -196,6 +204,18 @@ body {margin:0;}
     node.appendChild(textnode);
     document.querySelector('.text-block').appendChild(node);
     
+  }
+</script>
+<script>
+  function loginMongo() {
+    console.log('testing');
+    console.log(document.getElementById('username').value);
+    console.log(document.getElementById('password').value);
+
+    let user = document.getElementById('username').value;
+    let passwd = document.getElementById('password').value;
+    
+    let mongo = require('mongodb');
   }
 </script>
 </body>
