@@ -177,11 +177,15 @@ body {margin:0;}
     
 
 </div>
-<form>
-  Username:<input type="text" id="username" value="">
-  Password:<input type="text" id="password">
-  <input type="submit" value="submit" onclick="loginMongo()">
-</form>
+<div class="login_form">
+  
+  <form>
+    Username:<input type="text" id="username">
+    Password:<input type="text" id="password">
+    <input type="submit" onclick="loginMongo()">
+  </form>
+</div>
+
 
 
 <div class="bg">
@@ -207,17 +211,13 @@ body {margin:0;}
   }
 </script>
 <script>
+  
   function loginMongo() {
-    console.log('testing');
-    console.log(document.getElementById('username').value);
-    console.log(document.getElementById('password').value);
-
-    let user = document.getElementById('username').value;
-    let passwd = document.getElementById('password').value;
+    location.href = "http://localhost:8080/login";
     
-    let mongo = require('mongodb');
   }
 </script>
+
 </body>
 
 
