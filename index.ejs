@@ -179,10 +179,10 @@ body {margin:0;}
 </div>
 <div class="login_form">
   
-  <form>
-    Username:<input type="text" id="username">
-    Password:<input type="text" id="password">
-    <input type="submit" onclick="loginMongo()">
+  <form method="get" action="loadpages">
+    Username:<input type="text" id="username" name="user">
+    Password:<input type="text" id="password" name="passwd">
+    <input type="submit">
   </form>
 </div>
 
@@ -191,7 +191,8 @@ body {margin:0;}
 <div class="bg">
   <div class="container">
     <div class="text-block">
-
+      
+      
 
     </div>
   </div>
@@ -211,10 +212,21 @@ body {margin:0;}
   }
 </script>
 <script>
+
+  function printEntries() {
+    //Load pages + entries
+    var list = document.createElement('ul');
+    // Create a list item for each wizard
+    // and append it to the list
+    console.log('test entry in login');
+    console.log(req.entries);
+    entries.forEach(function (entry) {
+	    var li = document.createElement('li');
+	    li.textContent = entry;
+      list.appendChild(li);
   
-  function loginMongo() {
-    location.href = "http://localhost:8080/login";
-    
+    });
+    document.querySelector('page_data').appendChild(entires);
   }
 </script>
 

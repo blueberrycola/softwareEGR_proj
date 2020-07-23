@@ -58,24 +58,41 @@ app.post('/completetask', function(req, res) {
 //  render the ejs and display added task, 
 //  entries(index.ejs) = entries(array);
 app.get('/', function(req, res) {
-    res.render('index', {entries: entries, complete: complete});
+    res.render('index', {idString: idString, entries: entries, complete: complete});
 })
-app.get('/login', function() {
-    console.log('eurika!');
+
+app.get('/loadpages', function(req, res) {
+    console.log('testing');
+    console.log(req.query);
+    console.log(req.query["user"]);
+    let entries = [];
+    let complete = [];
+
+
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db('db')
-        var query = { _id: 'chasejohnston' };
+        var query = { _id: req.query["user"], passwd: req.query["passwd"] };
         dbo.collection('entry_collection').find(query).toArray(function(err, result) {
             if (err) throw err;
-            console.log(result[0]);
+            //display json
+            //console.log(result[0]);
             idString = result[0]._id;
             entries = result[0].task;
             complete = result[0].complete;
             db.close();
             
         });
+
     })
+    //console.log(entries);
+    //console.log(complete);
+    //console.log(idString);
+    res.render('index', {idString: idString, entries: entries, complete: complete});
+    //res.redirect('/');
+
+    
+
 })
 
 
