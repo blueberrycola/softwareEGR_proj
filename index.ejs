@@ -169,7 +169,7 @@ body {margin:0;}
   <a href="#"><i class="fas fa-list-ol"></i></a> 
   <a href="#"><i class="fas fa-list-ul"></i></a>
   <a href="#">
-    <i class="far fa-plus-square" onclick="createbullet()">
+    <i class="far fa-plus-square" form method="POST" action="loadpages">
 
     </i></a>
   <a href="#"><i class="fas fa-paste"></i>
@@ -179,7 +179,7 @@ body {margin:0;}
 </div>
 <div class="login_form">
   
-  <form method="get" action="loadpages">
+  <form method="get" action="loadentries">
     Username:<input type="text" id="username" name="user">
     Password:<input type="text" id="password" name="passwd">
     <input type="submit">
@@ -192,6 +192,14 @@ body {margin:0;}
   <div class="container">
     <div class="text-block">
       
+      <ul>
+        <%if (entries.length > 0) { %>
+          <% entries.forEach(function(entry) { %>
+            <li><%= entry %></li>
+        <% }); %>
+          <% } %>
+        
+    </ul>
       
 
     </div>
@@ -219,13 +227,15 @@ body {margin:0;}
     // Create a list item for each wizard
     // and append it to the list
     console.log('test entry in login');
-    console.log(req.entries);
+    console.log(entries);
     entries.forEach(function (entry) {
 	    var li = document.createElement('li');
 	    li.textContent = entry;
       list.appendChild(li);
   
     });
+    console.log('testing entries in printEntries')
+    console.log(entries);
     document.querySelector('page_data').appendChild(entires);
   }
 </script>

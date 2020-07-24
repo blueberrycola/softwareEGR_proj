@@ -61,7 +61,11 @@ app.get('/', function(req, res) {
     res.render('index', {idString: idString, entries: entries, complete: complete});
 })
 
-app.get('/loadpages', function(req, res) {
+app.post('/loadpages', function(req, res) {
+
+})
+
+app.get('/loadentries', function(req, res) {
     console.log('testing');
     console.log(req.query);
     console.log(req.query["user"]);
@@ -88,8 +92,9 @@ app.get('/loadpages', function(req, res) {
     //console.log(entries);
     //console.log(complete);
     //console.log(idString);
+    console.log('rendering entry and complete lists...')
     res.render('index', {idString: idString, entries: entries, complete: complete});
-    //res.redirect('/');
+    
 
     
 
