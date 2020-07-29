@@ -121,12 +121,23 @@ body {margin:0;}
   <a href="#"><i class="fas fa-list"></i>
   <a href="#"><i class="fas fa-list-ol"></i></a> 
   <a href="#"><i class="fas fa-list-ul"></i></a>-->
-  <a href="#">
-    <i class="far fa-plus-square" form method="POST" action="loadpages">
-    </i></a>
- <!-- <a href="#"><i class="fas fa-paste"></i> -->    
+  <a href="addtask">
+    <i class="far fa-plus-square"></i>
+    
+  </a>
+  
+ <!-- <a href="#"><i class="fas fa-paste"></i> -->
 
+<!--This form is responsible for taking the string in the form to index.js line:20-->    
+<div class="entryform">
+  <form method="post" action="addtask">
+    Text:<input type="text" name="newtask">
+    <!--Is there anyway to make this submit button the [+] that we have already?-->
+    <input type="submit">
+  </form>
+</div>  
 </div>
+
 <div class="login_form">
   
   <form method="get" action="loadentries">

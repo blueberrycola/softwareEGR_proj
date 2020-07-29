@@ -4,35 +4,19 @@ var app = express();
 //  body parser object init
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
-
-//  Pulls mongodb data. If entries are added or moved to completed.
-    //replace the document in mongodb
-var MongoClient = require('mongodb').MongoClient;
-var passwd = 'XpwinXP83PDjr29E';
-
-var url = 'mongodb+srv://blueberrycola:' + passwd + '@bulletjournalapp.kbpps.mongodb.net/<dbname>?retryWrites=true&w=majority';
-var entries = [];
-var idString = '';
-//  Completed tasks will have a green checkmark replaced instead of a dot
-var complete = [];
-MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db('db')
-    var query = { _id: 'chasejohnston' };
-    dbo.collection('entry_collection').find(query).toArray(function(err, result) {
-        if (err) throw err;
-        console.log(result[0]);
-        idString = result[0]._id;
-        entries = result[0].task;
-        complete = result[0].complete;
-        db.close();
-    });
-})
+//Vars that are pulled from the server
+let entries = [];
+let complete = [];
+let idString = "";
+// Vars used to connect mongodb server
+let MongoClient = require('mongodb').MongoClient;
+let passwd = 'XpwinXP83PDjr29E';
+let url = 'mongodb+srv://blueberrycola:' + passwd + '@bulletjournalapp.kbpps.mongodb.net/<dbname>?retryWrites=true&w=majority';
 
 
 
 
-//  post route for adding entry
+// route for adding entry by taking the form string value and adding it to the entries
 app.post('/addtask', function (req, res) {
     var newEntry = req.body.newtask;
     entries.push(newEntry);
@@ -69,8 +53,7 @@ app.get('/loadentries', function(req, res) {
     console.log('testing');
     console.log(req.query);
     console.log(req.query["user"]);
-    let entries = [];
-    let complete = [];
+    
 
 
     MongoClient.connect(url, function(err, db) {
