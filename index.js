@@ -12,14 +12,33 @@ let idString = "";
 let MongoClient = require('mongodb').MongoClient;
 let passwd = 'XpwinXP83PDjr29E';
 let url = 'mongodb+srv://blueberrycola:' + passwd + '@bulletjournalapp.kbpps.mongodb.net/<dbname>?retryWrites=true&w=majority';
+//Vars used to save the state of the user that is logged in
+let jUser = "";
+let jPass = "";
 
 
+function mongosync(newtask) {
+    //Connect to db
+    MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db('db')
+        //Append newtask to task array for the user
+        dbo.collection('entry_collection').update(
+            {_id: jUser},
+            { $push: {task: newtask}},   
+        )
+        db.close();
+        })   
+
+}
 
 
 // route for adding entry by taking the form string value and adding it to the entries
 app.post('/addtask', function (req, res) {
     var newEntry = req.body.newtask;
     entries.push(newEntry);
+    //Trigger mongosync function so the database is updated with its new task
+    mongosync(newEntry);
     res.redirect('/');
 });
 //  complete a task
@@ -59,7 +78,10 @@ app.get('/loadentries', function(req, res) {
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         var dbo = db.db('db')
-        var query = { _id: req.query["user"], passwd: req.query["passwd"] };
+        //Save state of who logged in for future mongoclient access
+        jUser = req.query["user"];
+        jPass = req.query["passwd"];
+        var query = { _id: jUser, passwd: jPass };
         dbo.collection('entry_collection').find(query).toArray(function(err, result) {
             if (err) throw err;
             //display json
