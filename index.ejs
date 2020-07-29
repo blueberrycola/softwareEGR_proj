@@ -82,8 +82,8 @@ body {margin:0;}
 .leather{
   position: relative;
   object-fit: cover;
-  width=100%
-  z-index:1; 
+  width:100%
+  z-index=1;
 }
   
 .logo{
@@ -120,31 +120,32 @@ body {margin:0;}
  <!-- <a href='#'><i class="fas fa-save"></i></a> 
   <a href="#"><i class="fas fa-list"></i>
   <a href="#"><i class="fas fa-list-ol"></i></a> 
-  <a href="#"><i class="fas fa-list-ul"></i></a>-->
+  <a href="#"><i class="fas fa-list-ul"></i></a>
   <a href="addtask">
     <i class="far fa-plus-square"></i>
     
-  </a>
+  </a> 
+  <a href="#"><i class="fas fa-paste"></i> -->
   
- <!-- <a href="#"><i class="fas fa-paste"></i> -->
-
-<!--This form is responsible for taking the string in the form to index.js line:20-->    
-<div class="entryform">
-  <form method="post" action="addtask">
-    Text:<input type="text" name="newtask">
-    <!--Is there anyway to make this submit button the [+] that we have already?-->
-    <input type="submit">
-  </form>
-</div>  
-</div>
-
-<div class="login_form">
+  <div class="login_form" style="padding-top:15px;padding-bottom:1px;background-color:#34495E;">
   
   <form method="get" action="loadentries">
-    Username:<input type="text" id="username" name="user">
-    Password:<input type="text" id="password" name="passwd">
+    Username: <input type="text" id="username" name="user">
+    Password: <input type="text" id="password" name="passwd">
     <input type="submit">
   </form>
+</div>
+
+
+
+<!--This form is responsible for taking the string in the form to index.js line:20-->    
+<div class="entryform" style="padding-top:15px;padding-bottom:0px;">
+  <form method="post" action="addtask">
+    Text:<input type="text" name="newtask" size="50px">
+    <!--Is there anyway to make this submit button the [+] that we have already?-->
+    <input type="Submit" value="Add Bullet">
+  </form>
+</div>  
 </div>
 
 
