@@ -16,8 +16,8 @@ let url = 'mongodb+srv://blueberrycola:' + passwd + '@bulletjournalapp.kbpps.mon
 let jUser = "";
 let jPass = "";
 
-
-function mongosync(newtask) {
+//Function responsible for saving local data entered by user into mongo database
+function mongosync_append(newtask) {
     //Connect to db
     MongoClient.connect(url, function(err, db) {
         if (err) throw err;
@@ -38,7 +38,7 @@ app.post('/addtask', function (req, res) {
     var newEntry = req.body.newtask;
     entries.push(newEntry);
     //Trigger mongosync function so the database is updated with its new task
-    mongosync(newEntry);
+    mongosync_append(newEntry);
     res.redirect('/');
 });
 //  complete a task
@@ -72,10 +72,19 @@ app.get('/loadentries', function(req, res) {
     console.log('testing');
     console.log(req.query);
     console.log(req.query["user"]);
+    //Error handling for null login info
+    if(req.query["user"] == null) {
+        throw error("username is blank");
+    } 
+    
+    if(req.query["passwd"] == null) {
+        throw error("username is blank")
+    }
     
 
 
     MongoClient.connect(url, function(err, db) {
+        var passcheck = "";
         if (err) throw err;
         var dbo = db.db('db')
         //Save state of who logged in for future mongoclient access
@@ -83,6 +92,7 @@ app.get('/loadentries', function(req, res) {
         jPass = req.query["passwd"];
         var query = { _id: jUser, passwd: jPass };
         dbo.collection('entry_collection').find(query).toArray(function(err, result) {
+            passcheck = result[0].passwd;
             if (err) throw err;
             //display json
             //console.log(result[0]);
@@ -91,24 +101,27 @@ app.get('/loadentries', function(req, res) {
             complete = result[0].complete;
             db.close();
             
-        });
-
+        });        
     })
-    //console.log(entries);
-    //console.log(complete);
-    //console.log(idString);
-    console.log('rendering entry and complete lists...')
+    //Throw error that no login info found
+    if(entries == null && complete == null) {
+        throw error("no user found");
+    }
+    //Clear information if jPass is incorrect
+    if(passcheck != jPass) {
+        throw error("Incorrect password");
+        entries = [];
+        complete = [];
+        idString = null;
+    }
+    
     res.render('index', {idString: idString, entries: entries, complete: complete});
-    
-
-    
-
 })
 
 
 
 app.listen(8080, function() {
-    console.log('open localhost:8080 on chrome to see app');
+    console.log('open localhost:8000 on chrome to see app');
 })
 
 
