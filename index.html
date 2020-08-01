@@ -1,0 +1,208 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+
+.bg{
+  background-color:white;
+  }
+  
+/* for the text box area*/
+.container {
+  position: relative;
+}
+
+/*for the text box area... this may need to be changed in some way in order to allow the user to save/load later on*/
+.text-block {
+  margin: 30px;
+  background-color: #ffffff;
+  /*the black border around the outside of the paper*/
+  border: 1px solid black;
+  /* The image used which is */
+  background-image: url("https://i.pinimg.com/originals/af/09/5e/af095e23981716dadfbd1516768978ff.jpg");
+  /* Full height */
+  height: 1200px;
+  width: 1200px; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.text-block p{
+  margin:5%;
+  font-weight: bold;
+  color: #000000;
+}
+
+/*part of the text area that allows the textbox itself to be transparent while also allowing the text to remain black*/
+.textareaa {
+  background-color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  float:left;
+  width: 1200px;
+  height: 1200px;
+}
+
+
+body {margin:0;}
+
+/*iconbar base*/
+.icon-bar {
+  width: 100%;
+  background-color: #000000;
+  overflow: auto;
+}
+
+/*iconbar button specifications*/
+.icon-bar a {
+  float: left;
+  width: 50px;
+  text-align: center;
+  padding: 12px 0;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 36px;
+}
+
+.icon-bar a:hover {
+  background-color: #61707D;
+}
+
+.active {
+  background-color: #0E5862;
+}
+
+.leather{
+  position: relative;
+  object-fit: cover;
+  width:100%
+  z-index=1;
+}
+  
+.logo{
+  position: absolute; 
+  top: 10px;
+  left: 1px;
+  z-index: 2; 
+
+}
+.saying{
+  position: absolute;
+  top: 7px;
+  left: 1000px; 
+  z-index: 2; 
+}
+
+  
+</style>
+</head>
+
+<body>
+
+<!-- this is the top area of the webpage with the leather background as well as a quick logo I made -->
+  <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/77827752-693b-4a5b-9c50-be492a42cfa7/d2ij2zr-3081ac33-61bf-4826-97c7-33b9e257f5b9.jpg/v1/fill/w_800,h_625,q_75,strp/avatar_movie_leather_texture_by_alexesn_d2ij2zr-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3siaGVpZ2h0IjoiPD02MjUiLCJwYXRoIjoiXC9mXC83NzgyNzc1Mi02OTNiLTRhNWItOWM1MC1iZTQ5MmE0MmNmYTdcL2QyaWoyenItMzA4MWFjMzMtNjFiZi00ODI2LTk3YzctMzNiOWUyNTdmNWI5LmpwZyIsIndpZHRoIjoiPD04MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.4_ulmERXwu-bTClhRSYYnfuSyyv7pp3hF8FtzuMqPew" class="leather" style="float:left;width:100%;height:10%;object-fit:cover;" >
+  <img src="https://i.ibb.co/hR2HWGC/theBuJo.png" class ="logo" style="float:left;width:225px;height:75px;object-fit:cover;">
+ <!-- <img src="https://i.ibb.co/9Tx9zrb/bujo2.png" class ="saying" style="float:right;width:300px;height:75px;object-fit:cover;"> -->
+
+
+</div>
+
+<script src="https://kit.fontawesome.com/4856c08f5f.js" crossorigin="anonymous"></script>
+
+<div class="icon-bar">
+ <!-- <a href='#'><i class="fas fa-save"></i></a> 
+  <a href="#"><i class="fas fa-list"></i>
+  <a href="#"><i class="fas fa-list-ol"></i></a> 
+  <a href="#"><i class="fas fa-list-ul"></i></a>
+  <a href="addtask">
+    <i class="far fa-plus-square"></i>
+    
+  </a> 
+  <a href="#"><i class="fas fa-paste"></i> -->
+  
+  <div class="login_form" style="padding-top:15px;padding-bottom:1px;background-color:#34495E;">
+  
+  <form method="get" action="loadentries">
+    Username: <input type="text" id="username" name="user">
+    Password: <input type="text" id="password" name="passwd">
+    <input type="submit">
+  </form>
+</div>
+
+
+
+<!--This form is responsible for taking the string in the form to index.js line:20-->    
+<div class="entryform" style="padding-top:15px;padding-bottom:0px;">
+  <form method="post" action="addtask">
+    Text:<input type="text" name="newtask" size="50px">
+    <!--Is there anyway to make this submit button the [+] that we have already?-->
+    <input type="Submit" value="Add Bullet">
+  </form>
+</div>  
+</div>
+
+
+
+<div class="bg">
+  <div class="container">
+    <div class="text-block">
+      
+      <ul>
+        <%if (entries.length > 0) { %>
+          <% entries.forEach(function(entry) { %>
+            <li><%= entry %></li>
+        <% }); %>
+          <% } %>
+        
+    </ul>
+      
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function createbullet() {
+    /* Vars used for bullet point placement on the image in textblock */
+    var x = 25;
+    var y = 45;
+    var y_increase = 40;
+    let node = document.createElement("LI");
+    let textnode = document.createTextNode("Testing");
+    node.appendChild(textnode);
+    document.querySelector('.text-block').appendChild(node);
+    
+  }
+</script>
+<script>
+
+  function printEntries() {
+    //Load pages + entries
+    var list = document.createElement('ul');
+    // Create a list item for each wizard
+    // and append it to the list
+    console.log('test entry in login');
+    console.log(entries);
+    entries.forEach(function (entry) {
+	    var li = document.createElement('li');
+	    li.textContent = entry;
+      list.appendChild(li);
+  
+    });
+    console.log('testing entries in printEntries')
+    console.log(entries);
+    document.querySelector('page_data').appendChild(entires);
+  }
+</script>
+
+</body>
+
+
+</html>
