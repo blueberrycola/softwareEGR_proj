@@ -1,8 +1,11 @@
 //  Initialize web app and express package
 var express = require('express');
+var router = express.Router();
 var app = express();
+var passcheck = "";
 //  body parser object init
 var bodyParser = require('body-parser');
+const { Router } = require('express');
 app.use(bodyParser.urlencoded({ extended: true }));
 //Vars that are pulled from the server
 let entries = [];
@@ -69,9 +72,8 @@ app.post('/loadpages', function(req, res) {
 })
 
 app.get('/loadentries', function(req, res) {
-    console.log('testing');
-    console.log(req.query);
-    console.log(req.query["user"]);
+    
+
     //Error handling for null login info
     if(req.query["user"] == null) {
         throw error("username is blank");
@@ -84,7 +86,7 @@ app.get('/loadentries', function(req, res) {
 
 
     MongoClient.connect(url, function(err, db) {
-        var passcheck = "";
+        
         if (err) throw err;
         var dbo = db.db('db')
         //Save state of who logged in for future mongoclient access
@@ -109,10 +111,11 @@ app.get('/loadentries', function(req, res) {
     }
     //Clear information if jPass is incorrect
     if(passcheck != jPass) {
-        throw error("Incorrect password");
+        
         entries = [];
-        complete = [];
+        complete = []
         idString = null;
+        throw error("Incorrect password");
     }
     
     res.render('index', {idString: idString, entries: entries, complete: complete});
@@ -127,3 +130,5 @@ app.listen(8080, function() {
 
 
 app.set('view engine', 'ejs');
+
+module.exports = router;
