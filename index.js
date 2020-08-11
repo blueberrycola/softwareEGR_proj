@@ -13,7 +13,7 @@ let complete = [];
 let idString = "";
 // Vars used to connect mongodb server
 let MongoClient = require('mongodb').MongoClient;
-let passwd = 'XpwinXP83PDjr29E';
+
 let url = 'mongodb+srv://blueberrycola:' + passwd + '@bulletjournalapp.kbpps.mongodb.net/<dbname>?retryWrites=true&w=majority';
 //Vars used to save the state of the user that is logged in
 let jUser = "";
